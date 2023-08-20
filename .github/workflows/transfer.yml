@@ -1,0 +1,40 @@
+name: Transfer Cron Job
+
+on:
+  schedule:
+    - cron: "35 16 * * *"
+
+env:
+  COUNTER_ID: ${{secrets.COUNTER_ID}}
+  GOOGLE_SERVICE_ACCOUNT: ${{secrets.GOOGLE_SERVICE_ACCOUNT}}
+  HIT_SHEET_URL: ${{secrets.HIT_SHEET_URL}}
+  START_DATE: ${{secrets.START_DATE}}
+  TOKEN: ${{secrets.TOKEN}}
+  VISIT_SHEET_URL: ${{secrets.VISIT_SHEET_URL}}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Save Google creds
+      run: |
+        mkdir ~/.config
+        mkdir ~/.config/gspread
+        echo ${{env.GOOGLE_SERVICE_ACCOUNT}} > ~/.config/gspread/service_account.json
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.10.9
+
+    - name: Install dependencies
+      run: |
+        python -m pip install -r requirements.txt
+        echo "Dependency successfully installed"
+
+    - name: Task
+      run: |
+        python main.py 
+        echo "Success"
