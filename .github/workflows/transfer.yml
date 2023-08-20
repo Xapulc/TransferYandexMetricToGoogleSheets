@@ -2,7 +2,7 @@ name: Transfer Cron Job
 
 on:
   schedule:
-    - cron: "20 16 * * *"
+    - cron: "13 01 * * *"
 
 env:
   COUNTER_ID: ${{secrets.COUNTER_ID}}
@@ -21,7 +21,7 @@ jobs:
     - name: Save Google creds
       run: |
         mkdir ~/.config/gspread
-        echo ${{env.GOOGLE_SERVICE_ACCOUNT}} > ~/.config/gspread/service_account.json
+        echo "${{env.GOOGLE_SERVICE_ACCOUNT}}" > ~/.config/gspread/service_account.json
         cat ~/.config/gspread/service_account.json
 
     - name: Set up Python
