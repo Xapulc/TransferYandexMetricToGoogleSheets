@@ -2,7 +2,7 @@ name: Transfer Cron Job
 
 on:
   schedule:
-    - cron: "50 13 * * *"
+    - cron: "00 14 * * *"
 
 env:
   COUNTER_ID: ${{secrets.COUNTER_ID}}
@@ -20,7 +20,6 @@ jobs:
 
     - name: Save Google creds
       run: |
-        mkdir ~/.config
         mkdir ~/.config/gspread
         echo ${{env.GOOGLE_SERVICE_ACCOUNT}} > ~/.config/gspread/service_account.json
 
