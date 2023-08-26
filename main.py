@@ -38,4 +38,5 @@ if __name__ == "__main__":
                             data_elem["api_field_list"])
 
         sh = gc.open_by_url(data_elem["google_sheet_url"])
-        sh.sheet1.update([data.columns.values.tolist()] + data.values.tolist())
+        sh.sheet1.update([data.columns.values.tolist()]
+                         + data.fillna("Unknown").values.tolist())
